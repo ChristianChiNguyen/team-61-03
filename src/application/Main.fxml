@@ -4,9 +4,16 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainController">
    <children>
+	 <ImageView fitHeight="350" fitWidth="350">
+         <image>
+            <Image url="@fw-bg-gradient.png" />
+         </image>
+      </ImageView>
       <Label layoutX="63.0" layoutY="51.0" prefHeight="72.0" prefWidth="225.0" text="Main" textFill="#6327d9">
          <font>
             <Font size="21.0" />
