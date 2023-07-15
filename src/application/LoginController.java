@@ -9,6 +9,7 @@ import javafx.event.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -39,12 +40,20 @@ public class LoginController implements Initializable {
 		try {
 			if (timeConsuleModel.isLogin(passWord.getText())) {
 				isConnected.setText("Password is correct!");
+				
+				//close current stage
+				Node source = (Node) event.getSource();
+				Stage currStage = (Stage) source.getScene().getWindow();
+				currStage.close();
+				
+				//show new stage
 				Stage primaryStage = new Stage();
 				Pane root = FXMLLoader.load(getClass().getResource("/application/Main.fxml"));
 				Scene scene = new Scene(root);
 				scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 				primaryStage.setScene(scene);
 				primaryStage.show();
+				
 			} else {
 				isConnected.setText("Password is not correct!");
 			}

@@ -12,7 +12,14 @@
             <Font size="21.0" />
          </font>
       </Label>
+      <Button fx:id="logoutButton" text="Logout" 
+              AnchorPane.rightAnchor="10" 
+              minWidth="50" minHeight="30"
+              maxWidth="100" maxHeight="50"
+              onAction="#Logout"/>
       <Button layoutX="63.0" layoutY="163.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="225.0" text="Create a new journal entry" />
       <Button layoutX="63.0" layoutY="239.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="225.0" text="Search/Edit old Journal Entries" />
    </children>
 </AnchorPane>
+
+
