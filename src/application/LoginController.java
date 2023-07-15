@@ -66,28 +66,6 @@ public class LoginController implements Initializable {
 	
 }
 	
-//	private void setBackground() {
-//        String imagePath = "./application/fw-bg-gradient.png";
-//        BackgroundImage backgroundImage = new BackgroundImage(
-//                new javafx.scene.image.Image(imagePath),
-//                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
-//                BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-//        backgroundPane.setBackground(new javafx.scene.layout.Background(backgroundImage));
-//    }
-//
-//    private void setupUI() {
-//        isConnected.setTextFill(Color.web("#d92727"));
-//        isConnected.setFont(Font.font("Arial", FontWeight.BOLD, 21));
-//        passWord.setFont(Font.font("Arial", 14));
-//        loginButton.setOnAction(e -> {
-//			try {
-//				Login(e);
-//			} catch (IOException e1) {
-//				// TODO Auto-generated catch block
-//				e1.printStackTrace();
-//			}
-//		});
-//    }
 	
 
 	
