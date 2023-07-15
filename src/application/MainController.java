@@ -20,13 +20,9 @@ public class MainController implements Initializable{
 	
 	 @FXML
 	    public void Logout(ActionEvent event) throws Exception {
-	        // get the current stage
 	        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-	        // close the current (Main) window
 	        stage.close();
 
-	        // open the Login window
 	        Stage loginStage = new Stage();
 	        Parent root = FXMLLoader.load(getClass().getResource("/application/Login.fxml"));
 	        Scene scene = new Scene(root);
