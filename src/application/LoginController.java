@@ -22,7 +22,7 @@ public class LoginController implements Initializable {
 	private Label isConnected;
 	
 	@FXML
-	private TextField passWord;
+	private PasswordField passWord;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {

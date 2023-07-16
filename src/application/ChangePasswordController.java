@@ -48,7 +48,9 @@ public class ChangePasswordController implements Initializable {
             String newPassword = newPasswordField.getText();
             String confirmPassword = confirmPasswordField.getText();
             
-            if( !newPassword.equals(confirmPassword)){
+            if (!appModel.isFirstLogin(oldPassword)) {
+            	msg.setText("Old password does not match!");
+            } else if (!newPassword.equals(confirmPassword)) {
             	msg.setText("Confirming new password didn't match!");
             } else {
             	if (appModel.updatePassword(oldPassword,confirmPassword))

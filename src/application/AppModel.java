@@ -25,28 +25,28 @@ public class AppModel {
 	}
 	
 	//Function to check if user is first time logged in
-		public boolean isFirstLogin(String password) throws SQLException {
-			PreparedStatement preparedStatement = null;
-			ResultSet resultSet = null;
-			//Query to get password from database
-			String query = "SELECT newpassword from users where PASSWORD = ? and newpassword is NULL";
-			try {
-				preparedStatement = conn.prepareStatement(query);
-				preparedStatement.setString(1, password);
-				
-				resultSet = preparedStatement.executeQuery();
-				
-				if (resultSet.next()) {
-					return true;
-				} else return false;
-				
-			} catch (Exception e) {
-				return false;
-			} finally {
-				preparedStatement.close();
-				resultSet.close();
-			}
+	public boolean isFirstLogin(String password) throws SQLException {
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		//Query to get password from database
+		String query = "SELECT password from users where PASSWORD = ? and newpassword is NULL";
+		try {
+			preparedStatement = conn.prepareStatement(query);
+			preparedStatement.setString(1, password);
+			
+			resultSet = preparedStatement.executeQuery();
+			
+			if (resultSet.next()) {
+				return true;
+			} else return false;
+			
+		} catch (Exception e) {
+			return false;
+		} finally {
+			preparedStatement.close();
+			resultSet.close();
 		}
+	}
 	
 	//Function to check if has logged in successfully
 	public boolean isLogin(String password) throws SQLException {
