@@ -32,7 +32,6 @@ public class LoginController implements Initializable {
 		} else {
 			isConnected.setText("Not Connected");
 		}
-		
 	}
 	
 	public void Login (ActionEvent event) throws IOException {
@@ -66,3 +65,7 @@ public class LoginController implements Initializable {
 	}
 	
 }
+	
+	
+
+	
