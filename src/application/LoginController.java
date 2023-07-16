@@ -34,7 +34,7 @@ public class LoginController implements Initializable {
 		}
 	}
 	
-	public void Login (ActionEvent event) throws IOException {
+	public void logIn (ActionEvent event) throws IOException {
 		try {
 			if (appModel.isFirstLogin(passWord.getText())) {
 				isConnected.setText("First time logged in!");
@@ -76,6 +76,27 @@ public class LoginController implements Initializable {
 			
 		} catch (SQLException e) {
 			isConnected.setText("Password is not correct!");
+			e.printStackTrace();
+		}
+	}
+	
+	public void changePassword (ActionEvent event) throws IOException {
+		try {
+			
+			//close current stage
+			Node source = (Node) event.getSource();
+			Stage currStage = (Stage) source.getScene().getWindow();
+			currStage.close();
+			
+			//show new stage
+			Stage primaryStage = new Stage();
+			Pane root = FXMLLoader.load(getClass().getResource("/application/ChangePassword.fxml"));
+			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			primaryStage.setScene(scene);
+			primaryStage.show();
+			
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

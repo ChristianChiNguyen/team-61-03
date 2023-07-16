@@ -20,8 +20,9 @@
             <Font size="21.0" />
          </font>
       </Label>
-      <Button layoutX="150.0" layoutY="213.0" mnemonicParsing="false" onAction="#Login" text="Login" />
+      <Button layoutX="117.0" layoutY="200.0" mnemonicParsing="false" onAction="#logIn" prefHeight="25.0" prefWidth="117.0" text="Login" />
       <Label fx:id="isConnected" layoutX="200.0" layoutY="319.0" prefHeight="17.0" prefWidth="141.0" text="Status" />
       <PasswordField fx:id="passWord" layoutX="71.0" layoutY="150.0" prefHeight="25.0" prefWidth="209.0" promptText="Password" />
+      <Button layoutX="117.0" layoutY="236.0" mnemonicParsing="false" onAction="#changePassword" prefHeight="25.0" prefWidth="117.0" text="Change Password" />
    </children>
 </AnchorPane>
