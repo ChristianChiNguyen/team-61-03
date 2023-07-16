@@ -16,7 +16,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class LoginController implements Initializable {
-	public LoginModel loginModel = new LoginModel();
+	public AppModel appModel = new AppModel();
 	
 	@FXML
 	private Label isConnected;
@@ -27,7 +27,7 @@ public class LoginController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		//Initialize and check if the database is connected
-		if (loginModel.isDbConnected()) {
+		if (appModel.isDbConnected()) {
 			isConnected.setText("Connected");
 		} else {
 			isConnected.setText("Not Connected");
@@ -36,10 +36,10 @@ public class LoginController implements Initializable {
 	
 	public void Login (ActionEvent event) throws IOException {
 		try {
-			if (loginModel.isFirstLogin()) {
+			if (appModel.isFirstLogin()) {
 				System.out.println("First");
 			}
-			if (loginModel.isLogin(passWord.getText())) {
+			if (appModel.isLogin(passWord.getText())) {
 				isConnected.setText("Password is correct!");
 				
 				//close current stage

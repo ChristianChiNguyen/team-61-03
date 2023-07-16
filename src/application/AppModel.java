@@ -2,11 +2,11 @@ package application;
 
 import java.sql.*;
 
-public class LoginModel {
+public class AppModel {
 	Connection conn;
 	
 	//Constructor
-	public LoginModel() {
+	public AppModel() {
 		conn = DbConnection.Connector();
 		if (conn == null) {
 			System.out.println("Unsuccessful connection1");
@@ -68,6 +68,29 @@ public class LoginModel {
 		} finally {
 			preparedStatement.close();
 			resultSet.close();
+		}
+	}
+	
+	//Function to change password from Change Password page
+	public boolean updatePassword(String oldPassword, String newPassword) throws SQLException{
+		String updateQuery = "UPDATE users SET password = ? WHERE password = ?";
+		PreparedStatement preparedStatement = null;
+		try { 
+			preparedStatement = conn.prepareStatement(updateQuery);
+			preparedStatement.setString(1, newPassword);
+			preparedStatement.setString(2, oldPassword);
+			
+			int result = preparedStatement.executeUpdate();
+			
+			if ( result > 0 )
+			{
+				return true;
+			}else {
+				return false;
+			}
+		}catch (Exception e) {
+			System.out.println(e);
+			return false;
 		}
 	}
 }
