@@ -1,5 +1,6 @@
 package application;
 import javafx.scene.Node;
+import javafx.scene.control.ComboBox;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -9,6 +10,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,12 +25,6 @@ public class ChangePasswordController implements Initializable {
 	
 	@FXML
 	private Label msg;
-	
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-
-	}
-	
 	@FXML
     private PasswordField oldPasswordField;
     @FXML
@@ -35,10 +32,15 @@ public class ChangePasswordController implements Initializable {
     @FXML
     private PasswordField confirmPasswordField;
     @FXML
-    private TextField securityQuestionField;
+    private ComboBox<String> securityQuestionField;
     @FXML
     private TextField securityAnswerField;
-    
+	
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+	    ObservableList<String> items =FXCollections.observableArrayList ("First pet's name?", "Mother's maiden name?", "City where you were born?");
+	    securityQuestionField.setItems(items);
+	}    
     //Function to update password when clicking Change Password
     @FXML
     public void changeHandler() throws IOException
@@ -64,9 +66,9 @@ public class ChangePasswordController implements Initializable {
         }
     }
     
-    //Log out function when clicking the Log Out button
+    //Back button that takes the user from change password screen to main login screen
     @FXML
-    public void Logout(ActionEvent event) throws Exception {
+    public void Back(ActionEvent event) throws Exception {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
 
