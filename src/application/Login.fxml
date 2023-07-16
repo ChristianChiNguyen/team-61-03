@@ -26,6 +26,6 @@
          </font>
       </TextField>
       <Button layoutX="150.0" layoutY="213.0" mnemonicParsing="false" onAction="#Login" text="Login" />
-      <Label fx:id="isConnected" layoutX="260.0" layoutY="319.0" prefHeight="17.0" prefWidth="76.0" text="Status" />
+      <Label fx:id="isConnected" layoutX="200.0" layoutY="319.0" prefHeight="17.0" prefWidth="141.0" text="Status" />
    </children>
 </AnchorPane>

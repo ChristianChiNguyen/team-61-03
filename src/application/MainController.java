@@ -16,12 +16,11 @@ public class MainController implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		
 	}
-	
-	 @FXML
+	 	@FXML
 	    public void Logout(ActionEvent event) throws Exception {
 	        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 	        stage.close();
-
+	
 	        Stage loginStage = new Stage();
 	        Parent root = FXMLLoader.load(getClass().getResource("/application/Login.fxml"));
 	        Scene scene = new Scene(root);
