@@ -1,5 +1,8 @@
 package application;
 import java.sql.*;
+
+
+/** Class to check database connection using JDBC to connect to sqlite file */
 public class DbConnection {
 	public static Connection Connector() {
 		try {

@@ -10,14 +10,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class LoginController implements Initializable {
-	public LoginModel timeConsuleModel = new LoginModel();
+	public LoginModel loginModel = new LoginModel();
 	
 	@FXML
 	private Label isConnected;
@@ -27,8 +26,8 @@ public class LoginController implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-		if (timeConsuleModel.isDbConnected()) {
+		//Initialize and check if the database is connected
+		if (loginModel.isDbConnected()) {
 			isConnected.setText("Connected");
 		} else {
 			isConnected.setText("Not Connected");
@@ -38,7 +37,10 @@ public class LoginController implements Initializable {
 	
 	public void Login (ActionEvent event) throws IOException {
 		try {
-			if (timeConsuleModel.isLogin(passWord.getText())) {
+			if (loginModel.isFirstLogin()) {
+				System.out.println("First");
+			}
+			if (loginModel.isLogin(passWord.getText())) {
 				isConnected.setText("Password is correct!");
 				
 				//close current stage
@@ -59,7 +61,6 @@ public class LoginController implements Initializable {
 			}
 		} catch (SQLException e) {
 			isConnected.setText("Password is not correct!");
-			// TODO
 			e.printStackTrace();
 		}
 	}
