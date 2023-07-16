@@ -24,35 +24,36 @@ public class AppModel {
 		}
 	}
 	
-	//Function to check user is first time logged in
-	public boolean isFirstLogin() throws SQLException {
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-		//Query to get password from database
-		String query = "Select password from users";
-		try {
-			preparedStatement = conn.prepareStatement(query);
-			
-			resultSet = preparedStatement.executeQuery();
-			
-			if (resultSet.next()) {
+	//Function to check if user is first time logged in
+		public boolean isFirstLogin(String password) throws SQLException {
+			PreparedStatement preparedStatement = null;
+			ResultSet resultSet = null;
+			//Query to get password from database
+			String query = "SELECT newpassword from users where PASSWORD = ? and newpassword is NULL";
+			try {
+				preparedStatement = conn.prepareStatement(query);
+				preparedStatement.setString(1, password);
+				
+				resultSet = preparedStatement.executeQuery();
+				
+				if (resultSet.next()) {
+					return true;
+				} else return false;
+				
+			} catch (Exception e) {
 				return false;
-			} else return true;
-			
-		} catch (Exception e) {
-			return false;
-		} finally {
-			preparedStatement.close();
-			resultSet.close();
+			} finally {
+				preparedStatement.close();
+				resultSet.close();
+			}
 		}
-	}
 	
 	//Function to check if has logged in successfully
 	public boolean isLogin(String password) throws SQLException {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		//Query to get password from database
-		String query = "Select password from users where password = ?";
+		String query = "Select newpassword from users where newpassword = ?";
 		try {
 			preparedStatement = conn.prepareStatement(query);
 			preparedStatement.setString(1, password);
@@ -73,12 +74,12 @@ public class AppModel {
 	
 	//Function to change password from Change Password page
 	public boolean updatePassword(String oldPassword, String newPassword) throws SQLException{
-		String updateQuery = "UPDATE users SET password = ? WHERE password = ?";
+		String updateQuery = "Update users set password = ?, newpassword = ? where id = 1";
 		PreparedStatement preparedStatement = null;
 		try { 
 			preparedStatement = conn.prepareStatement(updateQuery);
-			preparedStatement.setString(1, newPassword);
-			preparedStatement.setString(2, oldPassword);
+			preparedStatement.setString(1, oldPassword);
+			preparedStatement.setString(2, newPassword);
 			
 			int result = preparedStatement.executeUpdate();
 			

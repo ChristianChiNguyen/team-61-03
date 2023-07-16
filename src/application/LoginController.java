@@ -36,11 +36,8 @@ public class LoginController implements Initializable {
 	
 	public void Login (ActionEvent event) throws IOException {
 		try {
-			if (appModel.isFirstLogin()) {
-				System.out.println("First");
-			}
-			if (appModel.isLogin(passWord.getText())) {
-				isConnected.setText("Password is correct!");
+			if (appModel.isFirstLogin(passWord.getText())) {
+				isConnected.setText("First time logged in!");
 				
 				//close current stage
 				Node source = (Node) event.getSource();
@@ -49,15 +46,34 @@ public class LoginController implements Initializable {
 				
 				//show new stage
 				Stage primaryStage = new Stage();
-				Pane root = FXMLLoader.load(getClass().getResource("/application/Main.fxml"));
+				Pane root = FXMLLoader.load(getClass().getResource("/application/ChangePassword.fxml"));
 				Scene scene = new Scene(root);
 				scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 				primaryStage.setScene(scene);
 				primaryStage.show();
 				
 			} else {
-				isConnected.setText("Password is not correct!");
+				if (appModel.isLogin(passWord.getText())) {
+					isConnected.setText("Password is correct!");
+					
+					//close current stage
+					Node source = (Node) event.getSource();
+					Stage currStage = (Stage) source.getScene().getWindow();
+					currStage.close();
+					
+					//show new stage
+					Stage primaryStage = new Stage();
+					Pane root = FXMLLoader.load(getClass().getResource("/application/Main.fxml"));
+					Scene scene = new Scene(root);
+					scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+					primaryStage.setScene(scene);
+					primaryStage.show();
+					
+				} else {
+					isConnected.setText("Password is not correct!");
+				}
 			}
+			
 		} catch (SQLException e) {
 			isConnected.setText("Password is not correct!");
 			e.printStackTrace();

@@ -1,6 +1,7 @@
 package application;
 import javafx.scene.control.*;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -18,13 +19,10 @@ public class ChangePasswordController implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		if (appModel.isDbConnected()) {
-			msg.setText("Change password");
-		} else {
-			msg.setText("You are not connected");
-		}
+
 	}
 	
+	@FXML
     private PasswordField oldPasswordField;
     @FXML
     private PasswordField newPasswordField;
@@ -32,19 +30,20 @@ public class ChangePasswordController implements Initializable {
     private PasswordField confirmPasswordField;
     @FXML
     private TextField securityQuestionField;
+    @FXML
+    private TextField securityAnswerField;
     
-    public void changeHandler()
+    public void changeHandler() throws IOException
     {
-        String oldPassword = oldPasswordField.getText();
-        String newPassword = newPasswordField.getText();
-        String confirmPassword = confirmPasswordField.getText();
-        String securityQuestion = securityQuestionField.getText();
-        
-        try { 
-            if ( !appModel.isLogin(oldPassword)) {
+        try {
+        	String oldPassword = oldPasswordField.getText();
+            String newPassword = newPasswordField.getText();
+            String confirmPassword = confirmPasswordField.getText();
+            
+            if ( !appModel.isFirstLogin(oldPassword)) {
             	msg.setText("Incorrect old password");
             }
-            if( !newPasswordField.equals(confirmPassword)){
+            if( !newPassword.equals(confirmPassword)){
             	msg.setText("Confirm password didn't match");
             }
             
@@ -54,7 +53,7 @@ public class ChangePasswordController implements Initializable {
             }
             
         }catch (SQLException e) {
-        	System.out.println(e);
+        	e.printStackTrace();
         }
         
 
