@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
@@ -102,7 +103,16 @@ public class LoginController implements Initializable {
 	}
 
 	public void forgotPassword (ActionEvent event) {
-		
+		 try {
+	            Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+	            FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/ForgotPassword.fxml"));
+	            Parent root = loader.load();
+	            Scene scene = new Scene(root);
+	            primaryStage.setScene(scene);
+	            primaryStage.show();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
 	}
 	
 }
