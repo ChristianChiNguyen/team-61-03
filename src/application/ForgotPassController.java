@@ -1,6 +1,9 @@
 package application;
 
+import java.io.IOException;
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -13,11 +16,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class ForgotPassController {
+	
+    public AppModel appModel = new AppModel();
+	
     @FXML
     private TextField securityAnswerField;
 
@@ -33,26 +40,34 @@ public class ForgotPassController {
     @FXML
     private ComboBox<String> securityQuestionField;
     
+    @FXML
+    private Label msg;
+    
     public void initialize() {
 	    ObservableList<String> items =FXCollections.observableArrayList ("First pet's name?", "Mother's maiden name?", "City where you were born?");
 	    securityQuestionField.setItems(items);
 	}    
 
-    @FXML
-    private void resetPassword() {
-        String securityAnswer = securityAnswerField.getText();
-        String newPassword = newPasswordField.getText();
-        String confirmPassword = confirmPasswordField.getText();
 
-        // Perform the necessary password reset logic here
-        if (securityAnswerIsValid(securityAnswer) && newPasswordsMatch(newPassword, confirmPassword)) {
-            // Reset the password
-            System.out.println("Password reset successful!");
-        } else {
-            // Display an error message or perform appropriate actions
-            System.out.println("Password reset failed!");
-        }
+    public void resetPassword(ActionEvent event) {
+        // get selected question
+		String securityQuestion = securityQuestionField.getValue();
+		String securityAnswer = securityAnswerField.getText();
+		String newPassword = newPasswordField.getText();
+		String confirmPassword = confirmPasswordField.getText();
+
+		//check if new passwords match
+		if (newPassword.equals(confirmPassword)) {
+		    if (appModel.updatePassword(newPassword, securityQuestion, securityAnswer)) {
+		        msg.setText("Password successfully changed");
+		    } else {
+		        msg.setText("Failed to change password");
+		    }
+		} else {
+		    msg.setText("Passwords do not match");
+		}
     }
+
 
     private boolean securityAnswerIsValid(String securityAnswer) {
         // Implement the logic to validate the security answer
@@ -66,7 +81,7 @@ public class ForgotPassController {
         return newPassword.equals(confirmPassword);
     }
     
-    //Back button that takes the user from change password screen to main login screen
+    // Back button that takes the user from change password screen to main login screen
     @FXML
     public void Back(ActionEvent event) throws Exception {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -79,5 +94,8 @@ public class ForgotPassController {
         loginStage.setScene(scene);
         loginStage.show();
     }
+    
+    
+    
 
 }

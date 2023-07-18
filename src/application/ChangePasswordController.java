@@ -41,7 +41,7 @@ public class ChangePasswordController implements Initializable {
 	    ObservableList<String> items =FXCollections.observableArrayList ("First pet's name?", "Mother's maiden name?", "City where you were born?");
 	    securityQuestionField.setItems(items);
 	}    
-    //Function to update password when clicking Change Password
+    // Function to update password when clicking Change Password
     @FXML
     public void changeHandler() throws IOException
     {
@@ -49,13 +49,19 @@ public class ChangePasswordController implements Initializable {
         	String oldPassword = oldPasswordField.getText();
             String newPassword = newPasswordField.getText();
             String confirmPassword = confirmPasswordField.getText();
+            String securityQuestion = securityQuestionField.getValue();
+            String securityAnswer = securityAnswerField.getText();
             
             if (!appModel.checkOldPassword(oldPassword)) {
             	msg.setText("Old password did not match!");
             } else if (!newPassword.equals(confirmPassword)) {
             	msg.setText("Confirming new password didn't match!");
+            } else if (securityQuestion == null || securityQuestion.isEmpty()) {
+                msg.setText("Please select a security question!");
+            } else if (securityAnswer.isEmpty()) {
+                msg.setText("Please answer the security question!");
             } else {
-            	if (appModel.updatePassword(oldPassword,confirmPassword))
+            	if (appModel.updatePassword(newPassword, securityQuestion, securityAnswer))
                 {
                 	msg.setText("Password changed successfully!");
                 }
@@ -66,7 +72,7 @@ public class ChangePasswordController implements Initializable {
         }
     }
     
-    //Back button that takes the user from change password screen to main login screen
+    // Back button that takes the user from change password screen to main login screen
     @FXML
     public void Back(ActionEvent event) throws Exception {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
