@@ -1,11 +1,5 @@
 package application;
 
-import java.io.IOException;
-import java.net.URL;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.ResourceBundle;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -67,19 +61,6 @@ public class ForgotPassController {
 		    msg.setText("Passwords do not match");
 		}
     }
-
-
-    private boolean securityAnswerIsValid(String securityAnswer) {
-        // Implement the logic to validate the security answer
-        // Return true if the answer is valid, false otherwise
-        return true;
-    }
-
-    private boolean newPasswordsMatch(String newPassword, String confirmPassword) {
-        // Implement the logic to check if the new passwords match
-        // Return true if they match, false otherwise
-        return newPassword.equals(confirmPassword);
-    }
     
     // Back button that takes the user from change password screen to main login screen
     @FXML
@@ -94,8 +75,4 @@ public class ForgotPassController {
         loginStage.setScene(scene);
         loginStage.show();
     }
-    
-    
-    
-
 }

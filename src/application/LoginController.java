@@ -35,6 +35,7 @@ public class LoginController implements Initializable {
 		}
 	}
 	
+	// handles the event where the user needs to login
 	public void logIn (ActionEvent event) throws IOException {
 		try {
 			if (appModel.isFirstLogin(passWord.getText())) {
@@ -81,6 +82,7 @@ public class LoginController implements Initializable {
 		}
 	}
 	
+	// handles the event where the user wants to change password
 	public void changePassword (ActionEvent event) throws IOException {
 		try {
 			
@@ -102,6 +104,7 @@ public class LoginController implements Initializable {
 		}
 	}
 
+	// handles the event where the user forgets password
 	public void forgotPassword (ActionEvent event) {
 		 try {
 	            Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -116,7 +119,3 @@ public class LoginController implements Initializable {
 	}
 	
 }
-	
-	
-
-	

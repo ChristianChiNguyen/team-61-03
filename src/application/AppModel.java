@@ -13,16 +13,6 @@ public class AppModel {
 	            System.exit(1);
 	        }
 	 }
-    private boolean columnExists(String columnName) throws SQLException {
-        Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery("PRAGMA table_info(users)");
-        while (rs.next()) {
-            if (columnName.equals(rs.getString("name"))) {
-                return true;
-            }
-        }
-        return false;
-    }
 	
 	// Function to check if the database is connected
 	public boolean isDbConnected() {
@@ -38,6 +28,7 @@ public class AppModel {
 	public boolean isFirstLogin(String password) throws SQLException {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
+		
 		// Query to get password from database
 		String query = "SELECT password from users where PASSWORD = ? and newpassword is NULL";
 		try {
@@ -62,7 +53,7 @@ public class AppModel {
 	public boolean checkOldPassword(String password) throws SQLException {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
-		//Query to get password from database
+		// Query to get password from database
 		String query = "SELECT password from users where PASSWORD = ?";
 		try {
 			preparedStatement = conn.prepareStatement(query);
@@ -82,11 +73,11 @@ public class AppModel {
 		}
 	}
 	
-	// Function to check if has logged in successfully
+	// Function to check if user has logged in successfully
 	public boolean isLogin(String password) throws SQLException {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
-		//Query to get password from database
+		// Query to get password from database
 		String query = "Select newpassword from users where newpassword = ?";
 		try {
 			preparedStatement = conn.prepareStatement(query);
@@ -106,6 +97,7 @@ public class AppModel {
 		}
 	}
 
+	// Function to reset the user password  
 	public boolean updatePassword(String newPassword, String securityQuestion, String securityAnswer) {
 	    String updateQuery = "UPDATE users SET newpassword = ?, security_question = ?, security_answer = ? WHERE id = 1";
 	    PreparedStatement preparedStatement = null;
@@ -121,14 +113,6 @@ public class AppModel {
 	    } catch (Exception e) {
 	        System.out.println(e);
 	        return false;
-	    } finally {
-	        if (preparedStatement != null) {
-	            try {
-	                preparedStatement.close();
-	            } catch (SQLException e) {
-	                e.printStackTrace();
-	            }
-	        }
 	    }
 	}
 
