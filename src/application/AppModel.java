@@ -73,6 +73,54 @@ public class AppModel {
 		}
 	}
 	
+	// Function to check if user selects the correct security question
+	public boolean checkSecurityQuestion(String security) throws SQLException {
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		// Query to get security question from database
+		String query = "SELECT security_question from users where SECURITY_QUESTION = ?";
+		try {
+			preparedStatement = conn.prepareStatement(query);
+			preparedStatement.setString(1, security);
+				
+			resultSet = preparedStatement.executeQuery();
+			
+			if (resultSet.next()) {
+				return true;
+			} else return false;
+				
+		} catch (Exception e) {
+			return false;
+		} finally {
+			preparedStatement.close();
+			resultSet.close();
+		}
+	}
+	
+	// Function to check if user enters the correct security answer
+	public boolean checkSecurityAnswer(String securityAnswer) throws SQLException {
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		// Query to get security answer from database
+		String query = "SELECT security_answer from users where SECURITY_ANSWER = ?";
+		try {
+			preparedStatement = conn.prepareStatement(query);
+			preparedStatement.setString(1, securityAnswer);
+					
+			resultSet = preparedStatement.executeQuery();
+				
+			if (resultSet.next()) {
+				return true;
+			} else return false;
+					
+		} catch (Exception e) {
+			return false;
+		} finally {
+			preparedStatement.close();
+			resultSet.close();
+		}
+	}
+	
 	// Function to check if user has logged in successfully
 	public boolean isLogin(String password) throws SQLException {
 		PreparedStatement preparedStatement = null;

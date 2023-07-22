@@ -1,5 +1,7 @@
 package application;
 
+import java.sql.SQLException;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -42,8 +44,7 @@ public class ForgotPassController {
 	    securityQuestionField.setItems(items);
 	}    
 
-
-    public void resetPassword(ActionEvent event) {
+    public void resetPassword(ActionEvent event) throws SQLException {
         // get selected question
 		String securityQuestion = securityQuestionField.getValue();
 		String securityAnswer = securityAnswerField.getText();
@@ -51,17 +52,19 @@ public class ForgotPassController {
 		String confirmPassword = confirmPasswordField.getText();
 
 		//check if new passwords match
-		if (newPassword.equals(confirmPassword)) {
-		    if (appModel.updatePassword(newPassword, securityQuestion, securityAnswer)) {
-		        msg.setText("Password successfully changed");
-		    } else {
-		        msg.setText("Failed to change password");
-		    }
-		} else {
+		if (!newPassword.equals(confirmPassword)) {
 		    msg.setText("Passwords do not match");
-		}
+		}else if (!appModel.checkSecurityQuestion(securityQuestion)) {
+			msg.setText("Security question did not match!");
+	    } else if (!appModel.checkSecurityAnswer(securityAnswer)) {
+			msg.setText("Security answer did not match!");	
+	    } else if (appModel.updatePassword(newPassword, securityQuestion, securityAnswer)) {
+		    msg.setText("Password successfully changed");
+		} else {
+		    msg.setText("Failed to change password");
+		    }
     }
-    
+ 
     // Back button that takes the user from change password screen to main login screen
     @FXML
     public void Back(ActionEvent event) throws Exception {
