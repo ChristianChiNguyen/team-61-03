@@ -5,7 +5,7 @@ import java.sql.*;
 public class AppModel {
 	Connection conn;
 	
-	// Constructor
+	/** Constructor for AppModel */
 	 public AppModel() {
 	        conn = DbConnection.Connector();
 	        if (conn == null) {
@@ -14,7 +14,7 @@ public class AppModel {
 	        }
 	 }
 	
-	// Function to check if the database is connected
+	 /** Function to check if the database is connected */
 	public boolean isDbConnected() {
 		try {
 			return !conn.isClosed();
@@ -24,136 +24,73 @@ public class AppModel {
 		}
 	}
 	
-	// Function to check if user is first time logged in
-	public boolean isFirstLogin(String password) throws SQLException {
+	/** Lambda expression to check if a query with a variable input returns any data*/
+	IfDataExistsInterface ifDataExists = (String input, String query) -> {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
-		
+		try {
+			preparedStatement = conn.prepareStatement(query);
+			preparedStatement.setString(1, input);
+			
+			resultSet = preparedStatement.executeQuery();
+			
+			if (resultSet.next()) {
+				return true;
+			} else return false;
+			
+		} catch (Exception e) {
+			return false;
+		} finally {
+			preparedStatement.close();
+			resultSet.close();
+		}
+	};
+	
+	/** Function to check if user is first time logged in */
+	public boolean isFirstLogin(String password) throws SQLException {
 		// Query to get password from database
 		String query = "SELECT password from users where PASSWORD = ? and newpassword is NULL";
-		try {
-			preparedStatement = conn.prepareStatement(query);
-			preparedStatement.setString(1, password);
-			
-			resultSet = preparedStatement.executeQuery();
-			
-			if (resultSet.next()) {
-				return true;
-			} else return false;
-			
-		} catch (Exception e) {
-			return false;
-		} finally {
-			preparedStatement.close();
-			resultSet.close();
-		}
+		return ifDataExists.checkReturnData(password, query);
 	}
 	
-	// Function to check if user is first time logged in
+	/** Function to check if the old password matches database */
 	public boolean checkOldPassword(String password) throws SQLException {
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
 		// Query to get password from database
 		String query = "SELECT password from users where PASSWORD = ?";
-		try {
-			preparedStatement = conn.prepareStatement(query);
-			preparedStatement.setString(1, password);
-			
-			resultSet = preparedStatement.executeQuery();
-			
-			if (resultSet.next()) {
-				return true;
-			} else return false;
-			
-		} catch (Exception e) {
-			return false;
-		} finally {
-			preparedStatement.close();
-			resultSet.close();
-		}
+		return ifDataExists.checkReturnData(password, query);
 	}
 	
-	// Function to check if user selects the correct security question
+	/** Function to check if user selects the correct security question */
 	public boolean checkSecurityQuestion(String security) throws SQLException {
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
 		// Query to get security question from database
 		String query = "SELECT security_question from users where SECURITY_QUESTION = ?";
-		try {
-			preparedStatement = conn.prepareStatement(query);
-			preparedStatement.setString(1, security);
-				
-			resultSet = preparedStatement.executeQuery();
-			
-			if (resultSet.next()) {
-				return true;
-			} else return false;
-				
-		} catch (Exception e) {
-			return false;
-		} finally {
-			preparedStatement.close();
-			resultSet.close();
-		}
+		return ifDataExists.checkReturnData(security, query);
 	}
 	
-	// Function to check if user enters the correct security answer
+	/** Function to check if user enters the correct security answer */
 	public boolean checkSecurityAnswer(String securityAnswer) throws SQLException {
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
 		// Query to get security answer from database
 		String query = "SELECT security_answer from users where SECURITY_ANSWER = ?";
-		try {
-			preparedStatement = conn.prepareStatement(query);
-			preparedStatement.setString(1, securityAnswer);
-					
-			resultSet = preparedStatement.executeQuery();
-				
-			if (resultSet.next()) {
-				return true;
-			} else return false;
-					
-		} catch (Exception e) {
-			return false;
-		} finally {
-			preparedStatement.close();
-			resultSet.close();
-		}
+		return ifDataExists.checkReturnData(securityAnswer, query);
 	}
 	
-	// Function to check if user has logged in successfully
+	/** Function to check if user has logged in successfully */
 	public boolean isLogin(String password) throws SQLException {
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
 		// Query to get password from database
 		String query = "Select newpassword from users where newpassword = ?";
-		try {
-			preparedStatement = conn.prepareStatement(query);
-			preparedStatement.setString(1, password);
-			
-			resultSet = preparedStatement.executeQuery();
-			
-			if (resultSet.next()) {
-				return true;
-			} else return false;
-			
-		} catch (Exception e) {
-			return false;
-		} finally {
-			preparedStatement.close();
-			resultSet.close();
-		}
+		return ifDataExists.checkReturnData(password, query);
 	}
 
-	// Function to reset the user password  
+	/** Function to reset the user password */
 	public boolean updatePassword(String newPassword, String securityQuestion, String securityAnswer) {
-	    String updateQuery = "UPDATE users SET newpassword = ?, security_question = ?, security_answer = ? WHERE id = 1";
+	    String updateQuery = "UPDATE users SET password = ?, newpassword = ?, security_question = ?, security_answer = ? WHERE id = 1";
 	    PreparedStatement preparedStatement = null;
 	    try { 
 	        preparedStatement = conn.prepareStatement(updateQuery);
 	        preparedStatement.setString(1, newPassword);
-	        preparedStatement.setString(2, securityQuestion);
-	        preparedStatement.setString(3, securityAnswer);
+	        preparedStatement.setString(2, newPassword);
+	        preparedStatement.setString(3, securityQuestion);
+	        preparedStatement.setString(4, securityAnswer);
 	        
 	        int result = preparedStatement.executeUpdate();
 	        
@@ -163,6 +100,4 @@ public class AppModel {
 	        return false;
 	    }
 	}
-
-
 }
