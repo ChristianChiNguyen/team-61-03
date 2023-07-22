@@ -20,7 +20,7 @@
          </font>
       </Label>
       <Button maxHeight="50" maxWidth="100" minHeight="30" minWidth="50" onAction="#Logout" text="Logout" AnchorPane.rightAnchor="10" />
-      <Button layoutX="63.0" layoutY="163.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="225.0" text="Create a new journal entry" />
+	  <Button layoutX="63.0" layoutY="163.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="225.0" text="Create a new journal entry" onAction="#createNewJournalEntry"/>
       <Button layoutX="63.0" layoutY="239.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="225.0" text="Search/Edit old Journal Entries" />
    </children>
 </AnchorPane>

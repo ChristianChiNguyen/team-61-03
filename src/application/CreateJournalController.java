@@ -16,12 +16,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class CreateJournalController implements Initializable {
-	JournalModel journalModel = new JournalModel();
+public class CreateJournalController implements Initializable {    
 	public void initialize(URL location, ResourceBundle resources) {
-		
 	}
-	private Label msg;
+	
+	JournalModel journalModel = new JournalModel();
+    private Label msg = new Label();
+    
 	@FXML
     private TextField contextJournal;
     @FXML
@@ -29,7 +30,7 @@ public class CreateJournalController implements Initializable {
 
     @FXML
     // This will create a journal, will be fired when save button is clicked
-    public void createJournal() throws IOException{
+    public void createJournal(ActionEvent event) throws IOException{
         String context = contextJournal.getText();
         String content = contentJournal.getText();
         
