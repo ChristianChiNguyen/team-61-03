@@ -2,6 +2,10 @@ package application;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.io.IOException;
 
@@ -12,13 +16,16 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class CreateJournalController implements Initializable {    
 	public void initialize(URL location, ResourceBundle resources) {
-	}
+		datePicker.setValue(LocalDate.now());
+	    timePicker.setText(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
+		}
 	
 	JournalModel journalModel = new JournalModel();
     private Label msg = new Label();
@@ -27,7 +34,11 @@ public class CreateJournalController implements Initializable {
     private TextField contextJournal;
     @FXML
     private TextField contentJournal;
-
+    @FXML
+    private DatePicker datePicker;
+    @FXML
+    private TextField timePicker;
+ 
     @FXML
     // This will create a journal, will be fired when save button is clicked
     public void createJournal(ActionEvent event) throws IOException{
