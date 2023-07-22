@@ -1,23 +1,19 @@
 package application;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
-
 import javafx.event.*;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
+
 
 public class LoginController implements Initializable {
-	public AppModel appModel = new AppModel();
+	
+	private ChangeStage changeStage = new ChangeStage();
+	
+	private AppModel appModel = new AppModel();
 	
 	@FXML
 	private Label isConnected;
@@ -36,40 +32,22 @@ public class LoginController implements Initializable {
 	}
 	
 	// handles the event where the user needs to login
-	public void logIn (ActionEvent event) throws IOException {
+	public void logIn (ActionEvent event) throws Exception {
 		try {
 			if (appModel.isFirstLogin(passWord.getText())) {
 				isConnected.setText("First time logged in!");
 				
-				//close current stage
-				Node source = (Node) event.getSource();
-				Stage currStage = (Stage) source.getScene().getWindow();
-				currStage.close();
-				
-				//show new stage
-				Stage primaryStage = new Stage();
-				Pane root = FXMLLoader.load(getClass().getResource("/application/ChangePassword.fxml"));
-				Scene scene = new Scene(root);
-				scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-				primaryStage.setScene(scene);
-				primaryStage.show();
+				// if first time logged in, redirects user to change password
+		    	String viewDirectory = "/application/ChangePassword.fxml";
+		    	changeStage.show(viewDirectory, event);
 				
 			} else {
 				if (appModel.isLogin(passWord.getText())) {
 					isConnected.setText("Password is correct!");
 					
-					//close current stage
-					Node source = (Node) event.getSource();
-					Stage currStage = (Stage) source.getScene().getWindow();
-					currStage.close();
-					
-					//show new stage
-					Stage primaryStage = new Stage();
-					Pane root = FXMLLoader.load(getClass().getResource("/application/Main.fxml"));
-					Scene scene = new Scene(root);
-					scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-					primaryStage.setScene(scene);
-					primaryStage.show();
+					// if successfully logged in, redirects user to Main page
+			    	String viewDirectory = "/application/Main.fxml";
+			    	changeStage.show(viewDirectory, event);
 					
 				} else {
 					isConnected.setText("Password is not correct!");
@@ -82,37 +60,24 @@ public class LoginController implements Initializable {
 		}
 	}
 	
-	// handles the event where the user wants to change password
-	public void changePassword (ActionEvent event) throws IOException {
+	// handles the event where the user click "ChangePassword" button
+	public void changePassword (ActionEvent event) throws Exception {
 		try {
 			
-			//close current stage
-			Node source = (Node) event.getSource();
-			Stage currStage = (Stage) source.getScene().getWindow();
-			currStage.close();
+			String viewDirectory = "/application/ChangePassword.fxml";
+	    	changeStage.show(viewDirectory, event);
 			
-			//show new stage
-			Stage primaryStage = new Stage();
-			Pane root = FXMLLoader.load(getClass().getResource("/application/ChangePassword.fxml"));
-			Scene scene = new Scene(root);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setScene(scene);
-			primaryStage.show();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 	}
 
-	// handles the event where the user forgets password
-	public void forgotPassword (ActionEvent event) {
+	// handles the event where the user clicks "ForgotPassword" button
+	public void forgotPassword (ActionEvent event) throws Exception {
 		 try {
-	            Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	            FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/ForgotPassword.fxml"));
-	            Parent root = loader.load();
-	            Scene scene = new Scene(root);
-	            primaryStage.setScene(scene);
-	            primaryStage.show();
+			 	String viewDirectory = "/application/ForgotPassword.fxml";
+		    	changeStage.show(viewDirectory, event);
+		    	
 	        } catch (IOException e) {
 	            e.printStackTrace();
 	        }

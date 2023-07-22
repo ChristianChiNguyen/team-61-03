@@ -1,25 +1,20 @@
 package application;
-
 import java.sql.SQLException;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 public class ForgotPassController {
 	
-    public AppModel appModel = new AppModel();
+	private ChangeStage changeStage = new ChangeStage();
+	
+    private AppModel appModel = new AppModel();
 	
     @FXML
     private TextField securityAnswerField;
@@ -68,14 +63,7 @@ public class ForgotPassController {
     // Back button that takes the user from change password screen to main login screen
     @FXML
     public void Back(ActionEvent event) throws Exception {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
-
-        Stage loginStage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/application/Login.fxml"));
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-        loginStage.setScene(scene);
-        loginStage.show();
+    	String viewDirectory = "/application/Login.fxml";
+    	changeStage.show(viewDirectory, event);
     }
 }
