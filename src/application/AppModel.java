@@ -5,7 +5,7 @@ import java.sql.*;
 public class AppModel {
 	Connection conn;
 	
-	/** Constructor for AppModel */
+	/** Constructor for AppModel that connects to database */
 	 public AppModel() {
 	        conn = DbConnection.Connector();
 	        if (conn == null) {
