@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ChangePasswordController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CreateJournalController">
    <children>
       <ImageView fitHeight="350" fitWidth="350">
          <image>
@@ -21,18 +21,18 @@
             <Font size="21.0" />
          </font>
       </Label>
-      <PasswordField fx:id="confirmPasswordField" alignment="TOP_LEFT" layoutX="63.0" layoutY="160.0" prefHeight="112.0" prefWidth="225.0" promptText="Context">
+      <TextField fx:id="contentJournal" alignment="TOP_LEFT" layoutX="63.0" layoutY="160.0" prefHeight="112.0" prefWidth="225.0" promptText="Context">
          <font>
             <Font size="14.0" />
          </font>
-      </PasswordField>
-      <PasswordField fx:id="oldPasswordField" layoutX="63.0" layoutY="69.0" prefHeight="25.0" prefWidth="225.0" promptText="Title (Optional)">
+      </TextField>
+      <TextField fx:id="contextJournal" layoutX="63.0" layoutY="69.0" prefHeight="25.0" prefWidth="225.0" promptText="Title (Optional)">
          <font>
             <Font size="14.0" />
          </font>
-      </PasswordField>
-      <Button layoutX="153.0" layoutY="293.0" mnemonicParsing="false" onAction="#changeHandler" text="Save" />
-      <Button layoutX="7.0" layoutY="14.0" mnemonicParsing="false" onAction="#changeHandler" text="Cancel" />
+      </TextField>
+      <Button layoutX="153.0" layoutY="293.0" mnemonicParsing="false" onAction="#createJournal" text="Save" />
+      <Button layoutX="7.0" layoutY="14.0" mnemonicParsing="false" onAction="#Cancel" text="Cancel" />
       <DatePicker layoutX="63.0" layoutY="115.0" prefHeight="26.0" prefWidth="225.0" promptText="Date-Time" />
    </children>
 </AnchorPane>
