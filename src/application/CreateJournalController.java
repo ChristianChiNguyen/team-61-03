@@ -1,76 +1,75 @@
 package application;
-
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.io.IOException;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
+/** Represents the Controller for Create Journal page */
 public class CreateJournalController implements Initializable {    
-	public void initialize(URL location, ResourceBundle resources) {
-		datePicker.setValue(LocalDate.now());
-	    timePicker.setText(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
-		}
 	
-	JournalModel journalModel = new JournalModel();
-    private Label msg = new Label();
+	private ChangeStage changeStage = new ChangeStage();
+	
+	private JournalModel journalModel = new JournalModel();
     
-	@FXML
-    private TextField contextJournal;
     @FXML
-    private TextField contentJournal;
+    private Label msg;
+	@FXML
+    private TextField title;
+    @FXML
+    private TextField journalContext;
     @FXML
     private DatePicker datePicker;
     @FXML
     private TextField timePicker;
- 
-    @FXML
-    // This will create a journal, will be fired when save button is clicked
+    
+    @Override
+	public void initialize(URL location, ResourceBundle resources) {
+		datePicker.setValue(LocalDate.now());
+	    timePicker.setText(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
+		}
+
+    /** Function to create new Journal Entry */
     public void createJournal(ActionEvent event) throws IOException{
-        String context = contextJournal.getText();
-        String content = contentJournal.getText();
+        String string_title = title.getText();
+        String journal_context = journalContext.getText();
+        String date = "";
+        if (datePicker.getValue() != null) {
+        	date = datePicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        }
+        String time = timePicker.getText();
+        String dateTime = date + " " + time;
         
         try {
-            if (content.isEmpty()) {
-                // Display an error message if any field is empty
-                msg.setText("Content not available");
+            if (journal_context.isEmpty()) {
+                // Display an error message if context field is empty
+                msg.setText("Please enter journal's context!");
+            } else if (date.isEmpty()) {
+            	// Display an error message if date field is empty
+                msg.setText("Please enter date!");
+            } else if (time.isEmpty()) {
+            	// Display an error message if time field is empty
+                msg.setText("Please enter time!");
+            } else if ( journalModel.addJournal(string_title, journal_context, dateTime)){
+            		msg.setText("Journal entry has been saved successfully!");
             }
-            else {
-            	if ( journalModel.addJournal(context, content)){
-            		msg.setText("Journal added successfully");
-            	}
-            }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
         	e.printStackTrace();
         }
     }
     
+    /** Function to redirects user back to Main page when clicking "Cancel" */
     @FXML
-    // Send the user back to the main page
     public void Cancel(ActionEvent event) throws Exception {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
-
-        Stage loginStage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/application/Main.fxml"));
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-        loginStage.setScene(scene);
-        loginStage.show();
+    	String viewDirectory = "/application/Main.fxml";
+    	changeStage.show(viewDirectory, event);
     }
 }

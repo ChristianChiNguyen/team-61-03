@@ -9,31 +9,38 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CreateJournalController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="557.0" prefWidth="417.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CreateJournalController">
    <children>
-      <ImageView fitHeight="450" fitWidth="350">
+      <ImageView fitHeight="557.0" fitWidth="417.0">
          <image>
             <Image url="@fw-bg-gradient.png" />
          </image>
       </ImageView>
-      <Label layoutX="76.0" layoutY="14.0" prefHeight="44.0" prefWidth="296.0" text="Creating New Journal" textFill="#883838">
+      <Label layoutX="74.0" layoutY="45.0" prefHeight="31.0" prefWidth="253.0" text="Creating New Journal Entry" textFill="#883838">
          <font>
             <Font size="21.0" />
          </font>
       </Label>
-      <TextField fx:id="contextJournal" layoutX="63.0" layoutY="69.0" prefHeight="25.0" prefWidth="225.0" promptText="Title (Optional)">
+
+      <Label fx:id="msg" layoutX="66.0" layoutY="500.0" prefHeight="31.0" prefWidth="286.0" textAlignment="CENTER" textFill="#883838">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Button layoutX="10.0" layoutY="10.0" onAction="#Cancel" text="Cancel">
+       </Button>
+      <TextField fx:id="title" layoutX="46.0" layoutY="94.0" prefHeight="25.0" prefWidth="225.0" promptText="Title (Optional)">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
-      <DatePicker fx:id="datePicker" layoutX="63.0" layoutY="120.0"/>
-      <TextField fx:id="timePicker" layoutX="63.0" layoutY="160.0" promptText="HH:mm:ss"/>
-      <TextField fx:id="contentJournal" alignment="TOP_LEFT" layoutX="63.0" layoutY="200.0" prefHeight="112.0" prefWidth="225.0" promptText="Context">
+      <DatePicker fx:id="datePicker" layoutX="46.0" layoutY="141.0" />
+      <TextField fx:id="timePicker" layoutX="46.0" layoutY="181.0" promptText="HH:mm:ss" />
+      <TextField fx:id="journalContext" alignment="TOP_LEFT" layoutX="46.0" layoutY="222.0" prefHeight="208.0" prefWidth="315.0" promptText="Context">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
-      <Button layoutX="153.0" layoutY="393.0" mnemonicParsing="false" onAction="#createJournal" text="Save" />
-      <Button layoutX="7.0" layoutY="14.0" mnemonicParsing="false" onAction="#Cancel" text="Cancel" />
+      <Button layoutX="188.0" layoutY="444.0" mnemonicParsing="false" onAction="#createJournal" text="Save" />
    </children>
 </AnchorPane>

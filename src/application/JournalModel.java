@@ -1,11 +1,14 @@
 package application;
 
 import java.sql.*;
-import java.time.LocalDateTime;
 
+/** Represents the Model for Create Journal page. Clients can
+ * create journal entry into database with title (optional), date,
+ * time and journal context. */
 public class JournalModel {
 	 Connection conn;
 	 
+	 /** Constructor of JournalModel */
 	 public JournalModel() {
 	      	conn = DbConnection.Connector();
 	        if (conn == null) {
@@ -14,7 +17,7 @@ public class JournalModel {
 	        }
 	 }
 	
-	 // Function to check if the database is connected
+	 /** Function to check if the database is connected */
 	 public boolean isDbConnected() {
 			try {
 				return !conn.isClosed();
@@ -24,24 +27,24 @@ public class JournalModel {
 			}
 	 }
 	 
-	 // Function to create new journal entries
-	 public boolean addJournal(String title, String content) throws SQLException {
+	 /** Function to create a new journal entry
+	  * @param title user can optionally input title
+	  * @param context user must enter journal context
+	  * @param dateTime user must enter data and time
+	  * @return boolean check if journal has been added into database successfully */
+	 public boolean addJournal(String title, String context, String dateTime) throws SQLException {
 			PreparedStatement preparedStatement = null;
-			ResultSet resultSet = null;
-			LocalDateTime currentTime = LocalDateTime.now();
-			Timestamp timeStamp = Timestamp.valueOf(currentTime);
-			String query = "INSERT INTO journal (Context, Content, timeStamp) VALUES (?, ?, ?)";
+			String query = "INSERT INTO journal (title, journal_context, datetime_created) VALUES (?, ?, ?)";
 		 
 			try {
 				preparedStatement = conn.prepareStatement(query);
 				preparedStatement.setString(1,title);
-				preparedStatement.setString(2,content);
-				preparedStatement.setObject(3, currentTime);
+				preparedStatement.setString(2,context);
+				preparedStatement.setObject(3, dateTime);
 
 			
 				int rowsInserted = preparedStatement.executeUpdate();
 				if ( rowsInserted > 0 ) {
-					System.out.println("Successfully changed");
 					return true;
 				}
 				else {

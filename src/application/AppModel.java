@@ -2,6 +2,9 @@ package application;
 
 import java.sql.*;
 
+/** Represents the Model for Login, ChangePassword and ForgotPassword pages.
+ * This Model verifies password, security question and answer and
+ * updates/resets password. */
 public class AppModel {
 	Connection conn;
 	
@@ -24,7 +27,11 @@ public class AppModel {
 		}
 	}
 	
-	/** Lambda expression to check if a query with a variable input returns any data*/
+	/** Lambda expression to check if a query with 
+	 * a variable input returns any data.
+	 * @param input variable inside the query statement
+	 * @param query query-statement to be executed in database
+	 * @return boolean check if the query returns any data */
 	IfDataExistsInterface ifDataExists = (String input, String query) -> {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -81,7 +88,11 @@ public class AppModel {
 		return ifDataExists.checkReturnData(password, query);
 	}
 
-	/** Function to reset the user password */
+	/** Function to reset the user password 
+	 * @param newPassword user inputs the new password
+	 * @param securityQuestion user selects a security question
+	 * @param securityAnswer user inputs a new security answer 
+	 * @return boolean check if password has been updated successfully */
 	public boolean updatePassword(String newPassword, String securityQuestion, String securityAnswer) {
 	    String updateQuery = "UPDATE users SET password = ?, newpassword = ?, security_question = ?, security_answer = ? WHERE id = 1";
 	    PreparedStatement preparedStatement = null;

@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import java.sql.*;
 
 
+/** Represents the Controller for ChangePassword page */
 public class ChangePasswordController implements Initializable {
 	
 	private ChangeStage changeStage = new ChangeStage();
@@ -35,8 +36,9 @@ public class ChangePasswordController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 	    ObservableList<String> items =FXCollections.observableArrayList ("First pet's name?", "Mother's maiden name?", "City where you were born?");
 	    securityQuestionField.setItems(items);
-	}    
-    // Function to update password when clicking Change Password
+	}
+	
+    /** Function to update password when clicking "Change Password" */
     @FXML
     public void changeHandler() throws IOException
     {
@@ -67,7 +69,7 @@ public class ChangePasswordController implements Initializable {
         }
     }
     
-    // Back button that takes the user from change password screen to main login screen
+    /** Function to redirects user to Login page when clicking "Back" button */
     @FXML
     public void Back(ActionEvent event) throws Exception {
     	String viewDirectory = "/application/Login.fxml";

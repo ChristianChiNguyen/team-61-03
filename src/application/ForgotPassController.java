@@ -1,16 +1,20 @@
 package application;
+import java.net.URL;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-public class ForgotPassController {
+/** Represents the Controller for Forgot Password or Reset Password page */
+public class ForgotPassController implements Initializable {
 	
 	private ChangeStage changeStage = new ChangeStage();
 	
@@ -34,11 +38,14 @@ public class ForgotPassController {
     @FXML
     private Label msg;
     
-    public void initialize() {
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
 	    ObservableList<String> items =FXCollections.observableArrayList ("First pet's name?", "Mother's maiden name?", "City where you were born?");
 	    securityQuestionField.setItems(items);
 	}    
 
+   /** Function to reset password when clicking "Reset Password" */
+    @FXML
     public void resetPassword(ActionEvent event) throws SQLException {
         // get selected question
 		String securityQuestion = securityQuestionField.getValue();
@@ -60,7 +67,7 @@ public class ForgotPassController {
 		    }
     }
  
-    // Back button that takes the user from change password screen to main login screen
+    /** Function to redirects user to Login screen when clicking "Back" button */
     @FXML
     public void Back(ActionEvent event) throws Exception {
     	String viewDirectory = "/application/Login.fxml";

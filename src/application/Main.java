@@ -1,10 +1,11 @@
 /** Introduction: the main goal of the application is to store journal entries.
  * The application applies MVC Model (Model-View-Control)
- * Version 0.2 features:
- * . Check if the user is first time logged in
- * . Ask the user to set the new password and security question and answer
- * . After setting the new password, user can log into main page using the new password
- * . After logging into the main page, user can log out and the application returns to log in page
+ * Version 0.5 features:
+ * . Log in first time
+ * . Logout
+ * . Change password
+ * . Reset password (forgot password) based on security question and answer
+ * . Create new journal entry
  * */
 
 package application;
@@ -15,6 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
 
+/** Represents the Main class of the application */
 public class Main extends Application {
 	
 	@Override

@@ -8,7 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
-
+/** Represents the Controller for Log In page */
 public class LoginController implements Initializable {
 	
 	private ChangeStage changeStage = new ChangeStage();
@@ -31,7 +31,7 @@ public class LoginController implements Initializable {
 		}
 	}
 	
-	// handles the event where the user needs to login
+	/** Function to handle the event where the user needs to log in */
 	public void logIn (ActionEvent event) throws Exception {
 		try {
 			if (appModel.isFirstLogin(passWord.getText())) {
@@ -60,7 +60,7 @@ public class LoginController implements Initializable {
 		}
 	}
 	
-	// handles the event where the user click "ChangePassword" button
+	/** Redirects user to Change Password page after clicking "Change Password" button */
 	public void changePassword (ActionEvent event) throws Exception {
 		try {
 			
@@ -72,7 +72,7 @@ public class LoginController implements Initializable {
 			}
 	}
 
-	// handles the event where the user clicks "ForgotPassword" button
+	/** Redirects user to Forgot Password page after clicking "Forgot Password" button */
 	public void forgotPassword (ActionEvent event) throws Exception {
 		 try {
 			 	String viewDirectory = "/application/ForgotPassword.fxml";
