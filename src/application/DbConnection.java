@@ -13,7 +13,6 @@ public class DbConnection {
 		} catch (Exception e) {
 			System.out.println(e);
 			return null;
-			// TODO
 		}
 	}
 }
