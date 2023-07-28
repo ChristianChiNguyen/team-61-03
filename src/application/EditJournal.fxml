@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CreateJournalController">
+   <children>
+      <ImageView fitHeight="450" fitWidth="350">
+         <image>
+            <Image url="@fw-bg-gradient.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="106.0" layoutY="14.0" prefHeight="44.0" prefWidth="296.0" text="Editing Journal" textFill="#883838">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <TextField fx:id="contextJournal" layoutX="63.0" layoutY="69.0" prefHeight="25.0" prefWidth="225.0" promptText="Title">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <DatePicker fx:id="datePicker" layoutX="64.0" layoutY="117.0" prefHeight="27.0" prefWidth="185.0" />
+      <TextField fx:id="timePicker" layoutX="63.0" layoutY="160.0" promptText="HH:mm:ss" />
+      <TextField fx:id="contentJournal" alignment="TOP_LEFT" layoutX="63.0" layoutY="200.0" prefHeight="169.0" prefWidth="225.0" promptText="Context">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Button layoutX="153.0" layoutY="393.0" mnemonicParsing="false" onAction="#createJournal" text="Save" />
+      <Button layoutX="7.0" layoutY="14.0" mnemonicParsing="false" onAction="#Cancel" text="Cancel" />
+   </children>
+</AnchorPane>
