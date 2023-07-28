@@ -1,5 +1,8 @@
 package application;
 import javafx.scene.control.ComboBox;
+import javafx.stage.Stage;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import java.io.IOException;
 import java.net.URL;
@@ -8,6 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import java.sql.*;
 
@@ -38,9 +42,10 @@ public class ChangePasswordController implements Initializable {
 	    securityQuestionField.setItems(items);
 	}
 	
-    /** Function to update password when clicking "Change Password" */
+    /** Function to update password when clicking "Change Password" 
+     * @throws Exception */
     @FXML
-    public void changeHandler() throws IOException
+    public void changeHandler() throws Exception
     {
         try {
         	String oldPassword = oldPasswordField.getText();
@@ -61,6 +66,12 @@ public class ChangePasswordController implements Initializable {
             	if (appModel.updatePassword(newPassword, securityQuestion, securityAnswer))
                 {
                 	msg.setText("Password changed successfully!");
+                	Stage currentStage = (Stage) oldPasswordField.getScene().getWindow();
+                    // Load the login fxml
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/Login.fxml"));
+                    Parent root = loader.load();
+                    // Set the login fxml on the current stage
+                    currentStage.setScene(new Scene(root));
                 }
             }
             

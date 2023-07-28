@@ -9,6 +9,9 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -69,7 +72,18 @@ public class CreateJournalController implements Initializable {
     /** Function to redirects user back to Main page when clicking "Cancel" */
     @FXML
     public void Cancel(ActionEvent event) throws Exception {
-    	String viewDirectory = "/application/Main.fxml";
-    	changeStage.show(viewDirectory, event);
+    	Alert confirmationAlert = new Alert(AlertType.CONFIRMATION);
+        confirmationAlert.setTitle("Confirmation");
+        confirmationAlert.setHeaderText("Are you sure you want to cancel?");
+        confirmationAlert.setContentText("Any unsaved changes will be lost.");
+
+        // Show the confirmation page and see what user responds with 
+        ButtonType result = confirmationAlert.showAndWait().orElse(ButtonType.CANCEL);
+        
+        //if user selects "ok", take the user back to main.fxml
+        if (result == ButtonType.OK) {
+        	String viewDirectory = "/application/Main.fxml";
+        	changeStage.show(viewDirectory, event);
+        }
     }
 }
