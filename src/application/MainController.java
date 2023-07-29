@@ -31,6 +31,13 @@ public class MainController implements Initializable{
     	String viewDirectory = "/application/CreateJournal.fxml";
     	changeStage.show(viewDirectory, event);
     }
+	/** Redirects user to Search Entry page when clicking "Search a journal entry" button */
+	@FXML
+    void searchJournalEntry(ActionEvent event) throws Exception {
+    	String viewDirectory = "/application/SearchJournal.fxml";
+    	changeStage.show(viewDirectory, event);
+    }
+	
 }
 
 
