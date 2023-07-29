@@ -11,6 +11,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 
 
 public class SearchJournalController implements Initializable{
@@ -61,8 +62,18 @@ public class SearchJournalController implements Initializable{
     /** Function to redirects user to Login page when clicking "Back" button */
     @FXML
     public void Back(ActionEvent event) throws Exception {
-    	String viewDirectory = "/application/Main.fxml";
-    	changeStage.show(viewDirectory, event);
+    	Alert confirmationAlert = new Alert(AlertType.CONFIRMATION);
+        confirmationAlert.setTitle("Confirmation");
+        confirmationAlert.setHeaderText("Are you sure you want to cancel?");
+
+        // Show the confirmation page and see what user responds with 
+        ButtonType result = confirmationAlert.showAndWait().orElse(ButtonType.CANCEL);
+        
+        //if user selects "ok", take the user back to main.fxml
+        if (result == ButtonType.OK) {
+        	String viewDirectory = "/application/Main.fxml";
+        	changeStage.show(viewDirectory, event);
+        }
     }
     
 }

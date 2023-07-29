@@ -8,9 +8,13 @@ import java.util.ResourceBundle;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Stage;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -63,6 +67,12 @@ public class CreateJournalController implements Initializable {
                 msg.setText("Please enter time!");
             } else if ( journalModel.addJournal(string_title, journal_context, dateTime)){
             		msg.setText("Journal entry has been saved successfully!");
+            		Stage currentStage = (Stage) title.getScene().getWindow();
+                    // Load the main fxml
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/Main.fxml"));
+                    Parent root = loader.load();
+                    // Set the main fxml on the current stage
+                    currentStage.setScene(new Scene(root));
             }
         } catch (SQLException e) {
         	e.printStackTrace();
