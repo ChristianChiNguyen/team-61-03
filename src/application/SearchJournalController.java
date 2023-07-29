@@ -11,7 +11,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
+
 
 public class SearchJournalController implements Initializable{
 	
@@ -20,10 +20,8 @@ public class SearchJournalController implements Initializable{
     @Override
 	public void initialize(URL location, ResourceBundle resources) {
     	journalModel = new JournalModel();
-//        contextJournal.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().));
-//        contentJournal.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
-        contextJournal.setCellValueFactory(new PropertyValueFactory<>("Context"));
-        contentJournal.setCellValueFactory(new PropertyValueFactory<>("Content"));
+        contextJournal.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get("journal_context").toString()));
+        titleJournal.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get("title").toString()));
 	}
     
     @FXML
@@ -33,7 +31,7 @@ public class SearchJournalController implements Initializable{
     private TableColumn<Map<String, Object>, String> contextJournal;
 
     @FXML
-    private TableColumn<Map<String, Object>, String> contentJournal;
+    private TableColumn<Map<String, Object>, String> titleJournal;
 
     @FXML
     private TextField searchContent;

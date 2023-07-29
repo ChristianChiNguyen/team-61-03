@@ -36,7 +36,7 @@
       </TextField>
       <TableView fx:id="journalTableView" layoutX="63.0" layoutY="140.0" prefHeight="164.0" prefWidth="428.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="Title" fx:id="contentJournal"/>
+          <TableColumn prefWidth="75.0" text="Title" fx:id="titleJournal"/>
           <TableColumn prefWidth="370.0" text="Context" fx:id="contextJournal"/>
         </columns>
       </TableView>
