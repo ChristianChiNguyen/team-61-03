@@ -3,21 +3,13 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Optional;
 import java.util.ResourceBundle;
-import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.stage.Stage;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -102,25 +94,29 @@ public class EditJournalController implements Initializable {
     }
     
     /** Function to delete Journal Entry */
-    public void deleteJournal(ActionEvent event) throws Exception {
-        Alert confirmationAlert = new Alert(AlertType.CONFIRMATION);
-        confirmationAlert.setTitle("Confirmation");
-        confirmationAlert.setHeaderText("Are you sure you want to delete this journal entry?");
-        confirmationAlert.setContentText("Back to Main page?");
+    @FXML
+    public void deleteJournal(ActionEvent event) throws Exception{
+    	try {
+            if (journalModel.deleteJournalEntry(journal.getId())) {
+            	Alert confirmationAlert = new Alert(AlertType.CONFIRMATION);
+                confirmationAlert.setTitle("Confirmation");
+                confirmationAlert.setHeaderText("Journal entry has been deleted!");
+                confirmationAlert.setContentText("Back to Main page?");
 
-        // Show the confirmation page and see what user responds with
-        Optional<ButtonType> result = confirmationAlert.showAndWait();
-
-        // Check if the user clicked the OK button
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            journalModel.deleteJournalEntry(journal.getId());
-
-            String viewDirectory = "/application/Main.fxml";
-            changeStage.show(viewDirectory, event);
-        } else {
-            // User clicked CANCEL or closed the dialog
-            String viewDirectory = "/application/SearchJournal.fxml";
-            changeStage.show(viewDirectory, event);
+                // Show the confirmation page and see what user responds with 
+                ButtonType result = confirmationAlert.showAndWait().orElse(ButtonType.CANCEL);
+                
+                //if user selects "ok", take the user back to main.fxml
+                if (result == ButtonType.OK) {
+                	String viewDirectory = "/application/Main.fxml";
+                	changeStage.show(viewDirectory, event);
+                } else if (result == ButtonType.CANCEL) {
+                	String viewDirectory = "/application/SearchJournal.fxml";
+                	changeStage.show(viewDirectory, event);
+                }
+            }
+        } catch (SQLException e) {
+        	e.printStackTrace();
         }
     }
     
@@ -135,11 +131,10 @@ public class EditJournalController implements Initializable {
         // Show the confirmation page and see what user responds with 
         ButtonType result = confirmationAlert.showAndWait().orElse(ButtonType.CANCEL);
         
-        //if user selects "ok", take the user back to main.fxml
+        //if user selects "ok", take the user back to SearchJournal.fxml
         if (result == ButtonType.OK) {
-        	//Close current stage/view
-    		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.close();
+        	String viewDirectory = "/application/SearchJournal.fxml";
+        	changeStage.show(viewDirectory, event);
         }
     }
 }
