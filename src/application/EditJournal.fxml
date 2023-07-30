@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CreateJournalController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fitHeight="450" fitWidth="350">
          <image>
@@ -21,19 +21,25 @@
             <Font size="21.0" />
          </font>
       </Label>
-      <TextField fx:id="contextJournal" layoutX="63.0" layoutY="69.0" prefHeight="25.0" prefWidth="225.0" promptText="Title">
+      <TextField fx:id="title" layoutX="63.0" layoutY="69.0" prefHeight="25.0" prefWidth="225.0" promptText="Title">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
       <DatePicker fx:id="datePicker" layoutX="64.0" layoutY="117.0" prefHeight="27.0" prefWidth="185.0" />
       <TextField fx:id="timePicker" layoutX="63.0" layoutY="160.0" promptText="HH:mm:ss" />
-      <TextField fx:id="contentJournal" alignment="TOP_LEFT" layoutX="63.0" layoutY="200.0" prefHeight="169.0" prefWidth="225.0" promptText="Context">
+      <TextField fx:id="journalContext" alignment="TOP_LEFT" layoutX="63.0" layoutY="200.0" prefHeight="169.0" prefWidth="225.0" promptText="Context">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
-      <Button layoutX="153.0" layoutY="393.0" mnemonicParsing="false" onAction="#createJournal" text="Save" />
+      <Button layoutX="119.0" layoutY="378.0" mnemonicParsing="false" onAction="#editJournal" text="Edit" />
       <Button layoutX="7.0" layoutY="14.0" mnemonicParsing="false" onAction="#Cancel" text="Cancel" />
+      <Label fx:id="msg" layoutX="64.0" layoutY="411.0" prefHeight="30.0" prefWidth="225.0" textFill="#da6363">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Button layoutX="194.0" layoutY="378.0" mnemonicParsing="false" onAction="#deleteJournal" text="Delete" />
    </children>
 </AnchorPane>

@@ -36,6 +36,9 @@ public class SearchJournalController implements Initializable{
     
     @FXML
     private TableColumn<Journal, String> created;
+    
+    @FXML
+    private TableColumn<Journal, Button> button;
 
     @FXML
     private TextField searchTitle;
@@ -50,12 +53,19 @@ public class SearchJournalController implements Initializable{
     	title.setCellValueFactory(new PropertyValueFactory<Journal, String>("title"));
     	journalContext.setCellValueFactory(new PropertyValueFactory<Journal, String>("journalContext"));
     	created.setCellValueFactory(new PropertyValueFactory<Journal, String>("created"));
+    	button.setCellValueFactory(new PropertyValueFactory<Journal, Button>("button"));
 	}
     
     public void onSearchButtonClicked(ActionEvent event) throws IOException{
         // Perform the search using the JournalModel
     	try {
             ArrayList<Journal> searchResult = journalModel.searchJournal(searchTitle.getText(),searchContext.getText());
+            for (Journal journal : searchResult) {
+            	Button selectButton = new Button("Select");
+            	selectButton.setOnAction(new ButtonHandler(journal));
+            	journal.setButton(selectButton);
+            }
+            
             // Clear existing data in the TableView each time search is clicked
             journalTableView.getItems().clear();
             

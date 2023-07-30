@@ -101,7 +101,7 @@ public class JournalModel {
 	  * @return boolean check if the journal was updated or not.
 	  */ 
 	  public boolean updateJournalEntry(int id, String context, String title,String dateTime) throws SQLException {
-           PreparedStatement stmt = conn.prepareStatement("UPDATE journal SET journal_context = ?, title= ?, datetime_created= ? WHERE id = ?");
+           PreparedStatement stmt = conn.prepareStatement("UPDATE journal SET journal_context = ?, title= ?, datetime_created= ? WHERE journal_id = ?");
 	       try {
 	           stmt.setString(1, context);
 	           stmt.setString(2, title);
@@ -125,7 +125,7 @@ public class JournalModel {
 	   * @return boolean check if the journal was deleted or not.
 	   */ 
 	   public boolean deleteJournalEntry(int id) throws SQLException{
-           PreparedStatement stmt = conn.prepareStatement("DELETE FROM journal WHERE id = ?");
+           PreparedStatement stmt = conn.prepareStatement("DELETE FROM journal WHERE journal_id = ?");
 	       try {
 	           stmt.setInt(1, id);
 	           int rowsAffected = stmt.executeUpdate();

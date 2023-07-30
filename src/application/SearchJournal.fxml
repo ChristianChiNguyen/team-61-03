@@ -40,6 +40,7 @@
             <TableColumn fx:id="title" prefWidth="75.0" text="Title" />
             <TableColumn fx:id="journalContext" prefWidth="282.0" text="Journal Context" />
             <TableColumn fx:id="created" prefWidth="190.66668701171875" text="Created" />
+            <TableColumn fx:id="button" prefWidth="109.0" text="Select" />
         </columns>
       </TableView>
       <!--  <Button layoutX="501.0" layoutY="169.0" mnemonicParsing="false" onAction="#createJournal" prefHeight="28.0" prefWidth="39.0" text="Edit" />

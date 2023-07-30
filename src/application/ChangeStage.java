@@ -26,4 +26,27 @@ public class ChangeStage {
         newStage.setScene(scene);
         newStage.show();
 	}
+	
+	/** Function to close current view and open new view with loading EditJournalController
+	 * @Param viewDirectory directory of the .fxml file of the new view 
+	 * @param event event when clicking a button 
+	 * @param journal input to load EditJournalController */
+	public void show(ActionEvent event, Journal journal) throws Exception{
+		//Close current stage/view
+		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.close();
+        
+		//Show new stage/view
+        Stage newStage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/EditJournal.fxml"));
+        // Create a controller instance
+        EditJournalController controller = new EditJournalController(journal);
+        // Set it in the FXMLLoader
+        loader.setController(controller);
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+        newStage.setScene(scene);
+        newStage.show();
+	}
 }
