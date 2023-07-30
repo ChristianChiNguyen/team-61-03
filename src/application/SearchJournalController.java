@@ -7,49 +7,61 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 
 public class SearchJournalController implements Initializable{
 	
 	private JournalModel journalModel = new JournalModel();
 	private ChangeStage changeStage = new ChangeStage();
-    @Override
-	public void initialize(URL location, ResourceBundle resources) {
-    	journalModel = new JournalModel();
-        contextJournal.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get("journal_context").toString()));
-        titleJournal.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get("title").toString()));
-	}
+	
+	@FXML
+    private TableView<Journal> journalTableView;
+	
+	@FXML
+    private TableColumn<Journal, Integer> id;
+
+    @FXML
+    private TableColumn<Journal, String> title;
+
+    @FXML
+    private TableColumn<Journal, String> journalContext;
     
     @FXML
-    private TableView<Map<String, Object>> journalTableView;
+    private TableColumn<Journal, String> created;
 
     @FXML
-    private TableColumn<Map<String, Object>, String> contextJournal;
-
-    @FXML
-    private TableColumn<Map<String, Object>, String> titleJournal;
-
-    @FXML
-    private TextField searchContent;
+    private TextField searchTitle;
 
     @FXML
     private TextField searchContext;
-    
+    @Override
+	public void initialize(URL location, ResourceBundle resources) {
+    	journalModel = new JournalModel();
+    	journalTableView.setPlaceholder(new Label("No result found!"));
+    	id.setCellValueFactory(new PropertyValueFactory<Journal, Integer>("id"));
+    	title.setCellValueFactory(new PropertyValueFactory<Journal, String>("title"));
+    	journalContext.setCellValueFactory(new PropertyValueFactory<Journal, String>("journalContext"));
+    	created.setCellValueFactory(new PropertyValueFactory<Journal, String>("created"));
+	}
     
     public void onSearchButtonClicked(ActionEvent event) throws IOException{
         // Perform the search using the JournalModel
     	try {
-            ArrayList<Map<String, Object>> searchResult = journalModel.searchJournal(searchContent.getText(),searchContext.getText());
+            ArrayList<Journal> searchResult = journalModel.searchJournal(searchTitle.getText(),searchContext.getText());
             // Clear existing data in the TableView each time search is clicked
             journalTableView.getItems().clear();
-
+            
             // Populate the TableView with the search results
-            journalTableView.getItems().addAll(searchResult);
+            final ObservableList<Journal> data = FXCollections.observableArrayList(searchResult);
+            journalTableView.setItems(data);
     	}catch (SQLException e) {
         	e.printStackTrace();
         }

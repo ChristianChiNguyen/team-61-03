@@ -63,30 +63,28 @@ public class JournalModel {
 	  * @param title user can optionally input title
 	  * @param context user must enter journal context
 	  * @param dateTime user must enter data and time
-	  * @return Arraylist with Map objects
+	  * @return ArrayList with Map objects
 	  */ 
-	 public ArrayList<Map<String, Object>> searchJournal(String title, String context) throws SQLException {
-		 
-		 	// I am leaving some space for a functionality of searching by title
-		 
-	      	ArrayList<Map<String, Object>> journalList = new ArrayList<>();
-	      	PreparedStatement stmt = conn.prepareStatement("SELECT * FROM journal WHERE journal_context LIKE ?");
-	      	stmt.setString(1, "%" + context + "%");
-	      	
-	        try {	
-	            ResultSet rs = stmt.executeQuery();
-	            ResultSetMetaData metaData = rs.getMetaData();
-	            int columnCount = metaData.getColumnCount();
+	 public ArrayList<Journal> searchJournal(String title, String context) throws SQLException {
+		    PreparedStatement preparedStatement = null;
+	      	ArrayList<Journal> journalList = new ArrayList<>(); 
+	      	String query = "SELECT * FROM journal WHERE title LIKE ? AND journal_context LIKE ?";
 
+	        try {
+	        	preparedStatement = conn.prepareStatement(query);
+				preparedStatement.setString(1,"%" + title + "%");
+				preparedStatement.setString(2,"%" + context + "%");
+	            ResultSet rs = preparedStatement.executeQuery();
+	            
 	            while (rs.next()) {
-	                Map<String, Object> journalEntry = new HashMap<>();
-	                for (int i = 1; i <= columnCount; i++) {
-	                    String columnName = metaData.getColumnName(i);
-	                    Object value = rs.getObject(i);
-	                    journalEntry.put(columnName, value);
-	                }
-	                System.out.println(journalEntry.toString());
-	                journalList.add(journalEntry);
+	            	Integer id = rs.getInt("journal_id");
+	            	String journalTitle = rs.getString("title");
+	            	String journalContext = rs.getString("journal_context");
+	            	System.out.println(journalContext);
+	            	String created = rs.getString("datetime_created");
+	            	
+	                Journal journal = new Journal(id, journalTitle, journalContext, created);
+	                journalList.add(journal);
 	            }
 
 	        } catch (SQLException e) {

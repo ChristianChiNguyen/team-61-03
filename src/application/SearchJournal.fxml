@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="337.0" prefWidth="619.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SearchJournalController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="377.0" prefWidth="878.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SearchJournalController">
    <children>
-      <ImageView fitHeight="337.0" fitWidth="619.0" layoutX="1.0">
+      <ImageView fitHeight="377.0" fitWidth="879.0">
          <image>
             <Image url="@fw-bg-gradient.png" />
          </image>
@@ -22,26 +22,26 @@
             <Font size="21.0" />
          </font>
       </Label>
-      <TextField fx:id="searchContent" layoutX="239.0" layoutY="69.0" prefHeight="28.0" prefWidth="269.0" promptText="Context">
+      <TextField fx:id="searchContext" layoutX="239.0" layoutY="69.0" prefHeight="28.0" prefWidth="269.0" promptText="Context">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
       <Button layoutX="7.0" layoutY="14.0" mnemonicParsing="false" onAction="#Back" text="Cancel" />
       <Button layoutX="533.0" layoutY="69.0" mnemonicParsing="false" onAction="#onSearchButtonClicked" prefHeight="28.0" prefWidth="57.0" text="Search" />
-      <TextField fx:id="searchContext" layoutX="63.0" layoutY="69.0" prefHeight="28.0" prefWidth="150.0" promptText="Title">
+      <TextField fx:id="searchTitle" layoutX="63.0" layoutY="69.0" prefHeight="28.0" prefWidth="150.0" promptText="Title">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
-      <TableView fx:id="journalTableView" layoutX="63.0" layoutY="140.0" prefHeight="164.0" prefWidth="428.0">
+      <TableView fx:id="journalTableView" layoutX="63.0" layoutY="140.0" prefHeight="219.0" prefWidth="733.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="Title" fx:id="titleJournal"/>
-          <TableColumn prefWidth="370.0" text="Context" fx:id="contextJournal"/>
+          <TableColumn fx:id="id" prefWidth="75.0" text="ID" />
+            <TableColumn fx:id="title" prefWidth="75.0" text="Title" />
+            <TableColumn fx:id="journalContext" prefWidth="282.0" text="Journal Context" />
+            <TableColumn fx:id="created" prefWidth="190.66668701171875" text="Created" />
         </columns>
       </TableView>
-      <Label layoutX="63.0" layoutY="108.0" prefHeight="44.0" prefWidth="296.0" text="Search Results:" />
-      <Label layoutX="162.0" layoutY="108.0" prefHeight="44.0" prefWidth="296.0" text="Results found" />
       <!--  <Button layoutX="501.0" layoutY="169.0" mnemonicParsing="false" onAction="#createJournal" prefHeight="28.0" prefWidth="39.0" text="Edit" />
       <Button layoutX="548.0" layoutY="169.0" mnemonicParsing="false" onAction="#createJournal" prefHeight="28.0" prefWidth="57.0" text="Delete" />
       <Button layoutX="501.0" layoutY="194.0" mnemonicParsing="false" onAction="#createJournal" prefHeight="28.0" prefWidth="39.0" text="Edit" />
