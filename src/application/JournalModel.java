@@ -2,8 +2,6 @@ package application;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /** Represents the Model for Create Journal page. Clients can
  * create journal entry into database with title (optional), date,
