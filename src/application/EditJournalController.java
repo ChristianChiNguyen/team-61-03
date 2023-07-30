@@ -2,6 +2,7 @@ package application;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
@@ -10,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -20,14 +22,20 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-/** Represents the Controller for Create Journal page */
-public class CreateJournalController implements Initializable {    
+/** Represents the Controller for Edit Journal page */
+public class EditJournalController implements Initializable {    
 	
 	private ChangeStage changeStage = new ChangeStage();
 	
 	private JournalModel journalModel = new JournalModel();
-    
-    @FXML
+	
+	private Journal journal = new Journal();
+	
+	public EditJournalController(Journal journal) {
+        this.journal = journal;
+    }
+
+	@FXML
     private Label msg;
 	@FXML
     private TextField title;
@@ -40,12 +48,19 @@ public class CreateJournalController implements Initializable {
     
     @Override
 	public void initialize(URL location, ResourceBundle resources) {
-		datePicker.setValue(LocalDate.now());
-	    timePicker.setText(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
+    	title.setText(journal.getTitle());
+    	journalContext.setText(journal.getJournalContext());
+    	String dateTimeString = journal.getCreated();
+    	LocalDateTime dateTime = LocalDateTime.parse(dateTimeString, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    	LocalDate localDate = dateTime.toLocalDate();
+    	String timeString = DateTimeFormatter.ofPattern("HH:mm:ss").format(dateTime);
+    	
+		datePicker.setValue(localDate);
+	    timePicker.setText(timeString);
 		}
 
-    /** Function to create new Journal Entry */
-    public void createJournal(ActionEvent event) throws Exception{
+    /** Function to edit Journal Entry */
+    public void editJournal(ActionEvent event) throws Exception{
         String string_title = title.getText();
         String journal_context = journalContext.getText();
         String date = "";
@@ -65,10 +80,10 @@ public class CreateJournalController implements Initializable {
             } else if (time.isEmpty()) {
             	// Display an error message if time field is empty
                 msg.setText("Please enter time!");
-            } else if ( journalModel.addJournal(string_title, journal_context, dateTime)){
+            } else if ( journalModel.updateJournalEntry(journal.getId(), journal_context,string_title, dateTime)){
             	Alert confirmationAlert = new Alert(AlertType.CONFIRMATION);
                 confirmationAlert.setTitle("Confirmation");
-                confirmationAlert.setHeaderText("New journal entry has been saved!");
+                confirmationAlert.setHeaderText("Journal entry has been updated!");
                 confirmationAlert.setContentText("Do you want to go back to Main page?");
 
                 // Show the confirmation page and see what user responds with 
@@ -85,6 +100,27 @@ public class CreateJournalController implements Initializable {
         }
     }
     
+    /** Function to delete Journal Entry */
+    public void deleteJournal(ActionEvent event) throws Exception{
+    	journalModel.deleteJournalEntry(journal.getId());
+    	Alert confirmationAlert = new Alert(AlertType.CONFIRMATION);
+        confirmationAlert.setTitle("Confirmation");
+        confirmationAlert.setHeaderText("Journal entry has been deleted!");
+        confirmationAlert.setContentText("Back to Main page?");
+
+        // Show the confirmation page and see what user responds with 
+        ButtonType result = confirmationAlert.getResult();
+        
+        //if user selects "ok", take the user back to main.fxml
+        if (result == ButtonType.OK) {
+        	String viewDirectory = "/application/Main.fxml";
+        	changeStage.show(viewDirectory, event);
+        } else if (result == ButtonType.CANCEL) {
+        	String viewDirectory = "/application/SearchJournal.fxml";
+        	changeStage.show(viewDirectory, event);
+        }
+    }
+    
     /** Function to redirects user back to Main page when clicking "Cancel" */
     @FXML
     public void Cancel(ActionEvent event) throws Exception {
@@ -98,8 +134,9 @@ public class CreateJournalController implements Initializable {
         
         //if user selects "ok", take the user back to main.fxml
         if (result == ButtonType.OK) {
-        	String viewDirectory = "/application/Main.fxml";
-        	changeStage.show(viewDirectory, event);
+        	//Close current stage/view
+    		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.close();
         }
     }
 }

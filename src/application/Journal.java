@@ -1,17 +1,24 @@
 package application;
 import javafx.beans.property.*;
+import javafx.scene.control.Button;
 
 public class Journal {
 	private SimpleIntegerProperty id;
 	private SimpleStringProperty title;
 	private SimpleStringProperty journalContext;
 	private SimpleStringProperty created;
+	private Button button;
+	
+	public Journal() {
+		
+	}
 	
 	public Journal(Integer id, String title, String journalContext, String created) {
 		this.id = new SimpleIntegerProperty(id);
 		this.title = new SimpleStringProperty(title);;
 		this.journalContext = new SimpleStringProperty(journalContext);;
 		this.created = new SimpleStringProperty(created);
+		this.button = new Button("Select");
 	}
 	
 	/** 
@@ -69,6 +76,20 @@ public class Journal {
 	 * */
 	public void setCreated(String created) {
 		this.created = new SimpleStringProperty(created);
+	}
+	
+	/** 
+	 * @return the select button to Edit/Delete journal entry
+	 * */
+	public Button getButton() {
+		return this.button;
+	}
+	
+	/** 
+	 * @param button the select button to set
+	 * */
+	public void setButton(Button button) {
+		this.button = button;
 	}
 	
 	
