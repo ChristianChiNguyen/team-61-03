@@ -33,13 +33,13 @@
             <Font size="14.0" />
          </font>
       </TextField>
-      <Button layoutX="119.0" layoutY="378.0" mnemonicParsing="false" onAction="#editJournal" text="Edit" />
+      <Button layoutX="119.0" layoutY="378.0" mnemonicParsing="false" onAction="#editJournal" text="Update" />
       <Button layoutX="7.0" layoutY="14.0" mnemonicParsing="false" onAction="#Cancel" text="Cancel" />
       <Label fx:id="msg" layoutX="64.0" layoutY="411.0" prefHeight="30.0" prefWidth="225.0" textFill="#da6363">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Button layoutX="194.0" layoutY="378.0" mnemonicParsing="false" onAction="#deleteJournal" text="Delete" />
+      <Button layoutX="202.0" layoutY="378.0" mnemonicParsing="false" onAction="#deleteJournal" text="Delete" />
    </children>
 </AnchorPane>

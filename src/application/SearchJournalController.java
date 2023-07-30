@@ -16,7 +16,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-
+/** Represents the Controller to search Journal Entry based on 
+ * context or title.
+ */
 public class SearchJournalController implements Initializable{
 	
 	private JournalModel journalModel = new JournalModel();
@@ -77,9 +79,6 @@ public class SearchJournalController implements Initializable{
         }
 
     }
-    
-    //to do Edit Button Controller
-    //to do Delete button controller
     
     /** Function to redirects user to Login page when clicking "Back" button */
     @FXML

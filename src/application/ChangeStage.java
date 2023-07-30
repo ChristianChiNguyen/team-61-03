@@ -28,7 +28,6 @@ public class ChangeStage {
 	}
 	
 	/** Function to close current view and open new view with loading EditJournalController
-	 * @Param viewDirectory directory of the .fxml file of the new view 
 	 * @param event event when clicking a button 
 	 * @param journal input to load EditJournalController */
 	public void show(ActionEvent event, Journal journal) throws Exception{

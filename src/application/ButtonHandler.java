@@ -3,6 +3,9 @@ package application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
+/** Class to handle the button "Select" for each jounrnal entry after search 
+ * and redirects user to Edit Journal page.
+ */
 public class ButtonHandler implements EventHandler<ActionEvent> {
 	private Journal journal;
 

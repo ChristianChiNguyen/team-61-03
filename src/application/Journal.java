@@ -2,6 +2,7 @@ package application;
 import javafx.beans.property.*;
 import javafx.scene.control.Button;
 
+/** Journal Class to get data from Journal Table */
 public class Journal {
 	private SimpleIntegerProperty id;
 	private SimpleStringProperty title;
