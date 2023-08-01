@@ -13,6 +13,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 /** Represents the Controller for Create Journal page */
@@ -27,7 +28,7 @@ public class CreateJournalController implements Initializable {
 	@FXML
     private TextField title;
     @FXML
-    private TextField journalContext;
+    private TextArea journalContext;
     @FXML
     private DatePicker datePicker;
     @FXML

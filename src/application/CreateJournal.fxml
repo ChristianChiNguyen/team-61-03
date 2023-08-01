@@ -8,6 +8,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.control.TextArea?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="557.0" prefWidth="417.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CreateJournalController">
    <children>
@@ -36,11 +37,11 @@
       </TextField>
       <DatePicker fx:id="datePicker" layoutX="46.0" layoutY="141.0" />
       <TextField fx:id="timePicker" layoutX="46.0" layoutY="181.0" promptText="HH:mm:ss" />
-      <TextField fx:id="journalContext" alignment="TOP_LEFT" layoutX="46.0" layoutY="222.0" prefHeight="208.0" prefWidth="315.0" promptText="Context">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </TextField>
+      <TextArea fx:id="journalContext" layoutX="46.0" layoutY="222.0" prefHeight="208.0" prefWidth="315.0" promptText="Context">
+    	<font>
+        	<Font size="14.0" />
+    	</font>
+	  </TextArea>
       <Button layoutX="188.0" layoutY="444.0" mnemonicParsing="false" onAction="#createJournal" text="Save" />
    </children>
 </AnchorPane>
