@@ -1,9 +1,10 @@
 package application;
-import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -45,7 +46,7 @@ public class ChangePasswordController implements Initializable {
     /** Function to update password when clicking "Change Password" 
      * @throws Exception */
     @FXML
-    public void changeHandler() throws Exception
+    public void changeHandler(ActionEvent event) throws Exception
     {
         try {
         	String oldPassword = oldPasswordField.getText();
@@ -65,18 +66,25 @@ public class ChangePasswordController implements Initializable {
             } else {
             	if (appModel.updatePassword(newPassword, securityQuestion, securityAnswer))
                 {
-                	msg.setText("Password changed successfully!");
-                	Stage currentStage = (Stage) oldPasswordField.getScene().getWindow();
-                    // Load the login fxml
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/Login.fxml"));
-                    Parent root = loader.load();
-                    // Set the login fxml on the current stage
-                    currentStage.setScene(new Scene(root));
+                	Alert confirmationAlert = new Alert(AlertType.CONFIRMATION);
+                    confirmationAlert.setTitle("Confirmation");
+                    confirmationAlert.setHeaderText("New password, security question and answer have been saved!");
+                    confirmationAlert.setContentText("Do you want to go back to Login page?");
+
+                    // Show the confirmation page and see what user responds with 
+                    ButtonType result = confirmationAlert.showAndWait().orElse(ButtonType.CANCEL);
+                    
+                    //if user selects "ok", take the user back to Login.fxml
+                    if (result == ButtonType.OK) {
+                    	String viewDirectory = "/application/Login.fxml";
+                    	changeStage.show(viewDirectory, event);
+                    }
                 }
             }
             
         }catch (SQLException e) {
         	e.printStackTrace();
+        	msg.setText("Failed to reset password!");
         }
     }
     
