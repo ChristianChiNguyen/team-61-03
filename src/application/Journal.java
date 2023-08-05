@@ -16,8 +16,8 @@ public class Journal {
 	
 	public Journal(Integer id, String title, String journalContext, String created) {
 		this.id = new SimpleIntegerProperty(id);
-		this.title = new SimpleStringProperty(title);;
-		this.journalContext = new SimpleStringProperty(journalContext);;
+		this.title = new SimpleStringProperty(title);
+		this.journalContext = new SimpleStringProperty(journalContext);
 		this.created = new SimpleStringProperty(created);
 		this.button = new Button("Select");
 	}

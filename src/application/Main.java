@@ -1,6 +1,6 @@
 /** Introduction: the main goal of the application is to store journal entries.
  * The application applies MVC Model (Model-View-Control)
- * Version 0.5 features:
+ * Version 1. features:
  * . Log in first time
  * . Logout
  * . Change password

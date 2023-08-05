@@ -4,6 +4,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -58,6 +59,7 @@ public class SearchJournalController implements Initializable{
         // Perform the search using the JournalModel
     	try {
             ArrayList<Journal> searchResult = journalModel.searchJournal(searchTitle.getText(),searchContext.getText());
+            // Inject ButtonHandler for each button of each Journal Entry
             for (Journal journal : searchResult) {
             	Button selectButton = new Button("Select");
             	selectButton.setOnAction(new ButtonHandler(journal));

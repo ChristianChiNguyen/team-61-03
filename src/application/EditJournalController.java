@@ -22,7 +22,7 @@ public class EditJournalController implements Initializable {
 	
 	private JournalModel journalModel = new JournalModel();
 	
-	private Journal journal = new Journal();
+	private Journal journal;
 	
 	public EditJournalController(Journal journal) {
         this.journal = journal;
@@ -64,6 +64,8 @@ public class EditJournalController implements Initializable {
         String dateTime = date + " " + time;
         
         try {
+        	// Create new Journal entry based on the input
+        	Journal newJournal = new Journal(journal.getId(), journal_context,string_title, dateTime);
             if (journal_context.isEmpty()) {
                 // Display an error message if context field is empty
                 msg.setText("Please enter journal's context!");
@@ -73,7 +75,7 @@ public class EditJournalController implements Initializable {
             } else if (time.isEmpty()) {
             	// Display an error message if time field is empty
                 msg.setText("Please enter time!");
-            } else if ( journalModel.updateJournalEntry(journal.getId(), journal_context,string_title, dateTime)){
+            } else if ( journalModel.updateJournalEntry(newJournal) ){
             	Alert confirmationAlert = new Alert(AlertType.CONFIRMATION);
                 confirmationAlert.setTitle("Confirmation");
                 confirmationAlert.setHeaderText("Journal entry has been updated!");

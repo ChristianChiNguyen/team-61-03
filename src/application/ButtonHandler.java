@@ -7,17 +7,22 @@ import javafx.event.EventHandler;
  * and redirects user to Edit Journal page.
  */
 public class ButtonHandler implements EventHandler<ActionEvent> {
-	private Journal journal;
+	private EditJournalController editJournalController;
 
+    /** Constructor to create a ButtonHandler with input Journal
+     * @param journal each buttonHandler is assigned to a journal entry
+     */
     public ButtonHandler(Journal journal) {
-        this.journal = journal;
+        this.editJournalController = new EditJournalController(journal);
     }
 
     @Override
     public void handle(ActionEvent event) {
-        ChangeStage changeStage = new ChangeStage();      
+    	// Handler event to change stage to EditJournal
+    	String viewDirectory = "/application/EditJournal.fxml";
+        ChangeStage changeStage = new ChangeStage();
         try {
-			changeStage.show(event, journal);
+			changeStage.show(viewDirectory, event, editJournalController);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
