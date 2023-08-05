@@ -100,27 +100,25 @@ public class EditJournalController implements Initializable {
     @FXML
     public void deleteJournal(ActionEvent event) throws Exception{
     	try {
-            if (journalModel.deleteJournalEntry(journal.getId())) {
-            	Alert confirmationAlert = new Alert(AlertType.CONFIRMATION);
-                confirmationAlert.setTitle("Confirmation");
-                confirmationAlert.setHeaderText("Journal entry has been deleted!");
-                confirmationAlert.setContentText("Back to Main page?");
+    	if (journalModel.deleteJournalEntry(journal.getId())) {
+            Alert confirmationAlert = new Alert(AlertType.CONFIRMATION);
+            confirmationAlert.setTitle("Confirmation");
+            confirmationAlert.setHeaderText("Journal entry has been deleted!");
+            confirmationAlert.setContentText("Back to Main page?");
 
-                // Show the confirmation page and see what user responds with 
-                ButtonType result = confirmationAlert.showAndWait().orElse(ButtonType.CANCEL);
-                
-                //if user selects "ok", take the user back to main.fxml
-                if (result == ButtonType.OK) {
-                	String viewDirectory = "/application/Main.fxml";
-                	changeStage.show(viewDirectory, event);
-                } else if (result == ButtonType.CANCEL) {
-                	String viewDirectory = "/application/SearchJournal.fxml";
-                	changeStage.show(viewDirectory, event);
-                }
-            }
-        } catch (SQLException e) {
-        	e.printStackTrace();
+            // Set the OK button for the alert
+            confirmationAlert.getButtonTypes().setAll(ButtonType.OK);
+
+            // Show the confirmation alert
+            confirmationAlert.showAndWait();
+
+            // Take the user back to main.fxml
+            String viewDirectory = "/application/Main.fxml";
+            changeStage.show(viewDirectory, event);
         }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
     }
     
     /** Function to redirects user back to Main page when clicking "Cancel" */
