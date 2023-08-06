@@ -66,7 +66,7 @@ public class EditJournalController implements Initializable {
         
         try {
         	// Create new Journal entry based on the input
-        	Journal newJournal = new Journal(journal.getId(), journal_context,string_title, dateTime);
+        	Journal newJournal = new Journal(journal.getId(), string_title, journal_context, dateTime);
             if (journal_context.isEmpty()) {
                 // Display an error message if context field is empty
                 msg.setText("Please enter journal's context!");

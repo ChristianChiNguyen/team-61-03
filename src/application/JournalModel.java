@@ -99,10 +99,11 @@ public class JournalModel {
 	  * @return boolean check if the journal was updated or not.
 	  */ 
 	  public boolean updateJournalEntry(Journal newJournal) throws SQLException {
-           PreparedStatement stmt = conn.prepareStatement("UPDATE journal SET journal_context = ?, title= ?, datetime_created= ? WHERE journal_id = ?");
+           PreparedStatement stmt = conn.prepareStatement("UPDATE journal SET title = ?, journal_context = ?, datetime_created= ? WHERE journal_id = ?");
+		   
 	       try {
-	           stmt.setString(1, newJournal.getJournalContext());
-	           stmt.setString(2, newJournal.getTitle());
+	           stmt.setString(1, newJournal.getTitle());
+	           stmt.setString(2, newJournal.getJournalContext());
 	           stmt.setString(3, newJournal.getCreated());
 	           stmt.setInt(4, newJournal.getId());
 
